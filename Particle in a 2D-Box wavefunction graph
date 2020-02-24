@@ -1,0 +1,40 @@
+# Modules and components
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+from matplotlib import cm
+from matplotlib.ticker import LinearLocator, FormatStrFormatter
+import numpy as np
+
+
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+
+# Data and function
+n=10
+
+A = 1
+B = 100
+dx = A/100
+dy = B/100
+X = np.arange(0, A, dx)
+Y = np.arange(0, B, dy)
+X, Y = np.meshgrid(X, Y)
+Z = np.sin(n*np.pi*(1.0/A)*X)*np.sin(n*np.pi*(1.0/B)*Y)
+Z = np.sqrt(4.0/(A*B))*(Z)
+
+# Plot the surface.
+surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
+                       linewidth=0, antialiased=False)
+surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
+                       linewidth=0, antialiased=False)
+
+
+# Customize the z axis.
+ax.set_zlim(np.min(Z), np.max(Z))
+ax.zaxis.set_major_locator(LinearLocator(10))
+ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
+
+# Add a color bar which maps values to colors.
+fig.colorbar(surf, shrink=0.5, aspect=5)
+
+plt.show()
